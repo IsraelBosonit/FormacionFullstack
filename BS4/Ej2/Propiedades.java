@@ -14,9 +14,12 @@ public class Propiedades {
     private String url;
     @Value("${password: no tiene valor}")
     private String password;
-    @GetMapping("/parametros")
-    public void getPropiedades(){
-        System.out.println("url:"+url+","+"password:"+password);
+
+    public String getUrl() {
+        return url;
     }
 
+    public String getPassword() {
+        return password;
+    }
 }
