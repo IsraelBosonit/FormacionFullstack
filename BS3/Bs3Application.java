@@ -9,18 +9,20 @@ import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 public class Bs3Application {
-	
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(Bs3Application.class, args);
 	}
 	@Bean
 	CommandLineRunner ejecutate2(){
-		return p -> System.out.println("Hola desde la segunda clase");
+		return p ->
+
+			System.out.println("Hola desde la segunda clase");
 	}
 	@Bean
 	CommandLineRunner ejecutate3(){
-		return p -> System.out.println("Soy la tercera clase");
+		return p -> {System.out.println("Soy la tercera clase"+p[0]);};
 	}
 	@PostConstruct
 	void ejecutate(){
