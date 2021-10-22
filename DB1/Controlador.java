@@ -10,28 +10,38 @@ public class Controlador {
 
     @Autowired
     PersonaRepositorio personaRepositorio;
+    @Autowired
+    PersonaService personaService;
+
     @PostMapping
-    public Persona anadirPersona(@RequestBody Persona p){
+    public Persona anadirPersona(@RequestBody Persona p) throws Exception {
+        personaService.ComprabarNulos(p);
+        personaService.ComprobarLongitudUsuario(p);
         personaRepositorio.save(p);
         return p;
+
+
     }
-    @GetMapping("{id}")
-    public Persona getPersonabyId(@RequestParam Integer id)throws Exception{
+    @GetMapping("/{id}")
+    public Persona getPersonabyId(@PathVariable Integer id)throws Exception{
         return personaRepositorio.findById(id).orElseThrow(()->new Exception("No encontrado"));
     }
-    @PutMapping("{id}")
-    public Persona modificarPersona(@RequestParam Integer id, @RequestBody Persona p){
-        personaRepositorio.deleteById(id);
+    @PutMapping("/{id}")
+    public Persona modificarPersona(@PathVariable Integer id, @RequestBody Persona p) throws Exception {
+        personaService.ComprabarNulos(p);
+        personaService.ComprobarLongitudUsuario(p);
+        personaRepositorio.findById(id).orElseThrow(()->new Exception("No encontrado"));
         personaRepositorio.save(p);
         return p;
     }
-    @DeleteMapping("{id}")
-    public void deletePersonabyId(@RequestParam Integer id)throws Exception{
+    @DeleteMapping("/{id}")
+    public void deletePersonabyId(@PathVariable Integer id)throws Exception{
+        personaRepositorio.findById(id).orElseThrow(()->new Exception("No encontrado"));
         personaRepositorio.deleteById(id);
     }
-    @GetMapping("/nombre{nombre}")
-    public List<Persona> getPersonabyNombre(@RequestParam String nombre)throws Exception{
-        return personaRepositorio.findByUsuario(nombre);
+    @GetMapping("/nombre/{nombre}")
+    public List<Persona> getPersonabyNombre(@PathVariable String nombre)throws Exception{
+        return personaRepositorio.findByusuario(nombre);
     }
     @GetMapping
     public List<Persona> getAll()throws Exception{
