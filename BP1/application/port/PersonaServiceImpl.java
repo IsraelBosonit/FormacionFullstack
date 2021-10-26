@@ -1,9 +1,10 @@
-package com.example.DB1;
+package com.example.DB1.application.port;
 
+import com.example.DB1.domain.Persona;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonaServiceImpl implements PersonaService{
+public class PersonaServiceImpl implements PersonaService {
     @Override
     public void ComprabarNulos(Persona p) throws Exception {
         if(p.getUsuario()==null){

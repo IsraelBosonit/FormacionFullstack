@@ -1,7 +1,7 @@
-package com.example.DB1;
+package com.example.DB1.application.port;
 
+import com.example.DB1.domain.Persona;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
