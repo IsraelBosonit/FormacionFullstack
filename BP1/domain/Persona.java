@@ -1,4 +1,4 @@
-package com.example.DB1;
+package com.example.DB1.domain;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
