@@ -1,10 +1,15 @@
 package com.example.DB1.application.port;
 
 import com.example.DB1.domain.Student;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class StudentServiceImpl implements StudentService{
+    @Autowired
+    StudentRepositorio studentRepositorio;
     @Override
     public void comprobarNulos(Student s) throws Exception{
         if(s.getNum_hours_week()==null){
@@ -20,5 +25,11 @@ public class StudentServiceImpl implements StudentService{
         if(!(s.getAsignaturas().isEmpty())){
             throw new Exception("Student tiene asignaturas asignadas");
         }
+    }
+
+    @Override
+    public Student FindStudentById(String id) throws Exception {
+        Student student=studentRepositorio.findById(id).orElseThrow(()->new Exception("El estudiante no existe"));
+        return student;
     }
 }

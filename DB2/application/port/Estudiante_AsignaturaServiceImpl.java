@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class Estudiante_AsignaturaServiceImpl implements Estudiante_AsignaturaService{
     @Autowired
-    StudentRepositorio studentRepositorio;
+    StudentService studentService;
+    @Autowired
+    Estudiante_AsignaturaRepositorio estudiante_asignaturaRepositorio;
     @Override
     public void ComprobarNulos(Estudiante_Asignatura a) throws Exception {
         if(a.getInitial_date()==null){
@@ -17,6 +19,12 @@ public class Estudiante_AsignaturaServiceImpl implements Estudiante_AsignaturaSe
 
     @Override
     public void ComprobarStudent(Estudiante_Asignatura a) throws Exception {
-        studentRepositorio.findById(a.getStudent().getId_student()).orElseThrow(()->new Exception("El estudiante no existe"));
+        studentService.FindStudentById(a.getStudent().getId_student());
+    }
+
+    @Override
+    public Estudiante_Asignatura FindEstudiante_AsignaturaById(String id) throws Exception {
+        Estudiante_Asignatura estudiante_asignatura=estudiante_asignaturaRepositorio.findById(id).orElseThrow(()->new Exception("estudiante_asignatura no existe"));
+        return estudiante_asignatura;
     }
 }
