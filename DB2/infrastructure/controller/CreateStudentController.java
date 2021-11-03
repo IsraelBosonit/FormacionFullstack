@@ -1,5 +1,6 @@
 package com.example.DB1.infrastructure.controller;
 
+import com.example.DB1.application.port.Auxiliar;
 import com.example.DB1.application.port.StudentRepositorio;
 import com.example.DB1.application.port.StudentService;
 import com.example.DB1.domain.Student;
@@ -17,12 +18,14 @@ public class CreateStudentController {
     StudentService studentService;
     @Autowired
     StudentRepositorio studentRepositorio;
+    @Autowired
+    Auxiliar auxiliar;
     @PostMapping
     public StudentOutputDTO añadirEstudiante(@RequestBody StudentInputDTO s) throws Exception {
-        Student student=new Student(s);
+        Student student=auxiliar.CreateStudent(s);
         studentService.comprobarNulos(student);
         studentRepositorio.save(student);
-        StudentOutputDTO out=new StudentOutputDTO(student);
+        StudentOutputDTO out=auxiliar.CreateStudentOutputDTO(student);
         return out;
 
     }

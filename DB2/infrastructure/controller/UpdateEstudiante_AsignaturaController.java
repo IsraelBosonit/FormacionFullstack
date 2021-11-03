@@ -1,7 +1,9 @@
 package com.example.DB1.infrastructure.controller;
 
+import com.example.DB1.application.port.Auxiliar;
 import com.example.DB1.application.port.Estudiante_AsignaturaRepositorio;
 import com.example.DB1.application.port.Estudiante_AsignaturaService;
+import com.example.DB1.application.port.StudentService;
 import com.example.DB1.domain.Estudiante_Asignatura;
 import com.example.DB1.infrastructure.controller.dto.input.Estudiante_AsignaturaInputDTO;
 import com.example.DB1.infrastructure.controller.dto.output.Estudiante_AsignaturaOutputDTO;
@@ -17,11 +19,15 @@ public class UpdateEstudiante_AsignaturaController {
     Estudiante_AsignaturaRepositorio estudiante_asignaturaRepositorio;
     @Autowired
     Estudiante_AsignaturaService estudiante_asignaturaService;
+    @Autowired
+    StudentService studentService;
+    @Autowired
+    Auxiliar auxiliar;
     @PutMapping("/{id}")
     public Estudiante_AsignaturaOutputDTO modificarEstudiante_Asignatura(@PathVariable String id, @RequestBody Estudiante_AsignaturaInputDTO a) throws Exception {
         Estudiante_Asignatura est=estudiante_asignaturaRepositorio.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE));
-        if(a.getStudent()!=null){
-            est.setStudent(a.getStudent());
+        if(a.getId_student()!=null){
+            est.setStudent(studentService.FindStudentById(a.getId_student()));
         }
         if(a.getAsignatura()!=null){
             est.setAsignatura(a.getAsignatura());
@@ -37,6 +43,6 @@ public class UpdateEstudiante_AsignaturaController {
         }
         estudiante_asignaturaService.ComprobarNulos(est);
         estudiante_asignaturaRepositorio.save(est);
-        return new Estudiante_AsignaturaOutputDTO(est);
+        return auxiliar.CreateEstudiante_AsignaturaOutputDTO(est);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.DB1.infrastructure.controller;
 
+import com.example.DB1.application.port.Auxiliar;
 import com.example.DB1.application.port.Estudiante_AsignaturaRepositorio;
 import com.example.DB1.application.port.Estudiante_AsignaturaService;
 import com.example.DB1.application.port.StudentRepositorio;
@@ -23,10 +24,12 @@ public class FindEstudiante_AsignaturaController {
     Estudiante_AsignaturaRepositorio estudiante_asignaturaRepositorio;
     @Autowired
     StudentRepositorio studentRepositorio;
+    @Autowired
+    Auxiliar auxiliar;
     @GetMapping("/{id}")
     public Estudiante_AsignaturaOutputDTO findEstudiante_AsignaturabyId(@PathVariable String id){
         Estudiante_Asignatura est=estudiante_asignaturaRepositorio.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return new Estudiante_AsignaturaOutputDTO(est);
+        return auxiliar.CreateEstudiante_AsignaturaOutputDTO(est);
 
     }
     @GetMapping
@@ -34,7 +37,7 @@ public class FindEstudiante_AsignaturaController {
         List<Estudiante_Asignatura> l=estudiante_asignaturaRepositorio.findAll();
         List<Estudiante_AsignaturaOutputDTO> lout=new ArrayList<>();
         for(Estudiante_Asignatura a:l){
-            lout.add(new Estudiante_AsignaturaOutputDTO(a));
+            lout.add(auxiliar.CreateEstudiante_AsignaturaOutputDTO(a));
         }
         return lout;
     }
@@ -44,7 +47,7 @@ public class FindEstudiante_AsignaturaController {
         List<Estudiante_Asignatura> l=s.getAsignaturas();
         List<Estudiante_AsignaturaOutputDTO> lout=new ArrayList<>();
         for(Estudiante_Asignatura a:l){
-            lout.add(new Estudiante_AsignaturaOutputDTO(a));
+            lout.add(auxiliar.CreateEstudiante_AsignaturaOutputDTO(a));
         }
         return lout;
     }

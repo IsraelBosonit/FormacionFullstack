@@ -1,5 +1,6 @@
 package com.example.DB1.infrastructure.controller;
 
+import com.example.DB1.application.port.Auxiliar;
 import com.example.DB1.application.port.PersonaRepositorio;
 import com.example.DB1.application.port.PersonaService;
 import com.example.DB1.domain.Persona;
@@ -21,6 +22,8 @@ public class FindPersonaController {
     PersonaRepositorio personaRepositorio;
     @Autowired
     PersonaService personaService;
+    @Autowired
+    Auxiliar auxiliar;
 
     @GetMapping("/{id}")
     public PersonaOutputDTO getPersonabyId(@PathVariable String id, @RequestParam(name="outputType", defaultValue = "simple") String outputType)throws Exception{
@@ -30,10 +33,10 @@ public class FindPersonaController {
             out=new PersonaOutputDTO(p);
         }
         if(outputType.equals("profesor")){
-            out=new PersonaOutputProfesorDTO(p);
+            out=auxiliar.CreatePersonaOutputProfesorDTO(p);
         }
         if(outputType.equals("estudiante")){
-            out=new PersonaOutputEstudianteDTO(p);
+            out= auxiliar.CreatePersonaOutputEstudianteDTO(p);
         }
         return out;
     }
@@ -47,10 +50,10 @@ public class FindPersonaController {
                 lout.add(new PersonaOutputDTO(p));
             }
             if(outputType.equals("profesor")){
-                lout.add(new PersonaOutputProfesorDTO(p));
+                lout.add(auxiliar.CreatePersonaOutputProfesorDTO(p));
             }
             if(outputType.equals("estudiante")){
-                lout.add(new PersonaOutputEstudianteDTO(p));
+                lout.add(auxiliar.CreatePersonaOutputEstudianteDTO(p));
             }
         }
         return lout;
@@ -64,10 +67,10 @@ public class FindPersonaController {
                 lout.add(new PersonaOutputDTO(p));
             }
             if(outputType.equals("profesor")){
-                lout.add(new PersonaOutputProfesorDTO(p));
+                lout.add(auxiliar.CreatePersonaOutputProfesorDTO(p));
             }
             if(outputType.equals("estudiante")){
-                lout.add(new PersonaOutputEstudianteDTO(p));
+                lout.add(auxiliar.CreatePersonaOutputEstudianteDTO(p));
             }
         }
         return lout;

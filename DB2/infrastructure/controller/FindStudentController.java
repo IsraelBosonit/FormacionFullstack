@@ -1,5 +1,6 @@
 package com.example.DB1.infrastructure.controller;
 
+import com.example.DB1.application.port.Auxiliar;
 import com.example.DB1.application.port.StudentRepositorio;
 import com.example.DB1.application.port.StudentService;
 import com.example.DB1.domain.Student;
@@ -21,12 +22,15 @@ public class FindStudentController {
     StudentRepositorio studentRepositorio;
     @Autowired
     StudentService studentService;
+    @Autowired
+    Auxiliar auxiliar;
     @GetMapping("/{id}")
+
     public StudentOutputDTO getStudentbyId(@PathVariable String id, @RequestParam(name="outputType", defaultValue = "simple") String outputType){
         Student s=studentRepositorio.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
         StudentOutputDTO out = null;
         if(outputType.equals("simple")){
-            out=new StudentOutputDTO(s);
+            out=auxiliar.CreateStudentOutputDTO(s);
         }
         if(outputType.equals("full")){
             out=new StudentFullOutputDTO(s);
@@ -38,7 +42,7 @@ public class FindStudentController {
         List<Student> l=studentRepositorio.findAll();
         List<StudentOutputDTO> lout=new ArrayList<>();
         for (Student s : l) {
-            lout.add(new StudentOutputDTO(s));
+            lout.add(auxiliar.CreateStudentOutputDTO(s));
         }
         return lout;
     }
