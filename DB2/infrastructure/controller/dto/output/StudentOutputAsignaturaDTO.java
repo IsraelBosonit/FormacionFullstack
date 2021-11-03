@@ -1,22 +1,22 @@
 package com.example.DB1.infrastructure.controller.dto.output;
 
+import com.example.DB1.domain.Estudiante_Asignatura;
+import com.example.DB1.domain.Student;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonaOutputEstudianteDTO extends PersonaOutputDTO{
+public class StudentOutputAsignaturaDTO{
     private String id_student;
     private Integer num_hours_week;
     private String coments;
-    private String branch;
     private String id_profesor;
-    private String id_persona;
-    private String comentsProfesor;
-    private String branchProfesor;
+    private String branch;
     private List<Estudiante_AsignaturaOutputDTO> asignaturas;
 
 }

@@ -1,8 +1,6 @@
 package com.example.DB1.infrastructure.controller.dto.output;
 
 import com.example.DB1.domain.Persona;
-import com.example.DB1.domain.Profesor;
-import com.example.DB1.domain.Student;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
