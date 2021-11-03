@@ -1,13 +1,11 @@
 package com.example.DB1.domain;
 
 import com.example.DB1.StringPrefixedSequenceIdGenerator;
-import com.example.DB1.infrastructure.controller.dto.input.Estudiante_AsignaturaInputDTO;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.Date;
 @Data
@@ -28,7 +26,7 @@ public class Estudiante_Asignatura {
                             "%08d")
             })
     private String id_asignatura;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id_student")
     private Student student;
     private String asignatura;
@@ -38,12 +36,4 @@ public class Estudiante_Asignatura {
     private Date initial_date;
     @Temporal(TemporalType.DATE)
     private Date finish_date;
-
-    public Estudiante_Asignatura(Estudiante_AsignaturaInputDTO a){
-        this.setStudent(a.getStudent());
-        this.setAsignatura(a.getAsignatura());
-        this.setComents(a.getComents());
-        this.setInitial_date(a.getInitial_date());
-        this.setFinish_date(a.getFinish_date());
-    }
 }
